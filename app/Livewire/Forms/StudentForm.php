@@ -10,17 +10,17 @@ class StudentForm extends Form
 {
     public ?Student $student;
     #[Validate("required|max:255")]
-    public string $name;
-    #[Validate("required|exists:classes,id")]
-    public int $class_id;
+    public $name;
+    #[Validate("required|exists:claasses,id")]
+    public $claass_id;
     #[Validate("required|max:255")]
-    public string $guardian_name;
+    public $guardian_name;
 
     public function setStudent(Student $student): void
     {
         $this->student = $student;
         $this->name = $student->name;
-        $this->class_id = $student->class_id;
+        $this->claass_id = $student->claass_id;
         $this->guardian_name = $student->guardian_name;
     }
 
