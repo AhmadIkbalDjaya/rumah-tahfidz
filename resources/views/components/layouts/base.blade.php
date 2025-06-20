@@ -18,7 +18,7 @@
     <x-base.sidebar />
     <div class="grow">
       <x-base.navbar />
-      <div class="py-1">
+      <div class="py-1 md:p-3">
         {{ $slot }}
       </div>
     </div>
