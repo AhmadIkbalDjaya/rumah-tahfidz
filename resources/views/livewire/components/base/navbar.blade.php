@@ -1,3 +1,19 @@
+<?php
+
+use Livewire\Volt\Component;
+use App\Livewire\Forms\AuthForm;
+
+new class extends Component {
+  public AuthForm $form;
+  public function logout()
+  {
+    if ($this->form->logout()) {
+      $this->redirectRoute("login");
+    }
+  }
+};
+?>
+
 <div
   class="navbar bg-base-100 sticky top-0 z-20 flex min-h-12 rounded-md px-1 py-1.5 shadow-sm md:px-2.5"
 >
@@ -30,7 +46,7 @@
     </a>
   </div>
   <div class="flex gap-2">
-    <button class="cursor-pointer">
+    <button wire:click="logout" class="cursor-pointer">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
