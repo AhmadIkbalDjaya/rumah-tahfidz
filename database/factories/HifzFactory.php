@@ -31,7 +31,7 @@ class HifzFactory extends Factory
             "verse_end"    => $verseEnd,
             "review_count" => $this->faker->numberBetween(1, 5),
             "score"        => $this->faker->randomElement(["A", "B", "C"]),
-            "recorded_at"  => $this->faker->dateTimeBetween("-1 year", "now"),
+            "recorded_at"  => $this->faker->dateTimeBetween("-1 year", now()),
         ];
     }
 }

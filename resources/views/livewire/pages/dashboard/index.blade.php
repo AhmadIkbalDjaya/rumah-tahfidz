@@ -1,8 +1,15 @@
 <?php
 
 use Livewire\Volt\{Component};
-use Livewire\Attributes\{Title};
+use Livewire\Attributes\{Title, Layout};
 
-new #[Title("Rumah Tahfiz")] class extends Component {}; ?>
+new class extends Component {
+  #[Title("Rumah Tahfiz")]
+  #[Layout("components.layouts.base")]
+  public function with(): array
+  {
+    return [];
+  }
+}; ?>
 
-<x-layouts.base>Dashboard</x-layouts.base>
+<div>Dashboard</div>

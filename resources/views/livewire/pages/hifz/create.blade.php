@@ -162,7 +162,7 @@ new class extends Component {
               x-on:click="
                 $wire.set('form.surah_id', null),
                   (selected = null),
-                  $wire.set('studentSearch', ''),
+                  $wire.set('surahSearch', ''),
                   resetVerseCount()
               "
             >
@@ -199,26 +199,6 @@ new class extends Component {
             <x-input.error-message field="form.surah_id" />
           @enderror
         </fieldset>
-        {{--
-          <fieldset class="fieldset">
-          <legend class="fieldset-legend">Zidayah</legend>
-          <select
-          wire:model.live="form.surah_id"
-          x-on:change="getSurahVarseCount"
-          class="select w-full"
-          >
-          <option value="" disabled selected>Pilih Surah</option>
-          @foreach ($surahs as $surah)
-          <option value="{{ $surah->id }}">
-          {{ $surah->number }}. {{ $surah->name }}
-          </option>
-          @endforeach
-          </select>
-          @error("form.surah_id")
-          <x-input.error-message field="form.surah_id" />
-          @enderror
-          </fieldset>
-        --}}
         <fieldset class="fieldset">
           <legend class="fieldset-legend">Ayat Pertama</legend>
           <select wire:model.live="form.verse_start" class="select w-full">

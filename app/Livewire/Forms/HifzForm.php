@@ -33,7 +33,7 @@ class HifzForm extends Form
         $this->verse_end = $hifz->verse_end;
         $this->review_count = $hifz->review_count;
         $this->score = $hifz->score;
-        $this->recorded_at = $hifz->recorded_at;
+        $this->recorded_at = $hifz->recorded_at->format('Y-m-d\TH:i');
     }
 
     public function store(): void

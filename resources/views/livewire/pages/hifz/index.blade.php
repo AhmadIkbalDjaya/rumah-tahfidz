@@ -67,7 +67,7 @@ new class extends Component {
     <x-table>
       <thead>
         <tr>
-          <x-table.th label="No" class="px-1 text-center" />
+          <x-table.th label="No" class="px-3 text-center" />
           <x-table.th label="Nama" />
           <x-table.th label="Zidayah" />
           <x-table.th label="Muroja'ah" class="text-center" />
@@ -81,7 +81,7 @@ new class extends Component {
           <tr wire:key="{{ $hifz->id }}">
             <x-table.th
               :label="$hifzs->firstItem() + $loop->index"
-              class="px-1 text-center"
+              class="px-3 text-center"
             />
             <x-table.td :label="$hifz->student->name" />
             <x-table.td>
