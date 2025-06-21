@@ -1,13 +1,15 @@
 <?php
 
-use Livewire\Volt\Component;
-use App\Models\Student;
-use App\Models\Surah;
 use App\Models\Hifz;
+use App\Models\Surah;
+use App\Models\Student;
+use Livewire\Volt\Component;
 use App\Livewire\Forms\HifzForm;
+use App\Traits\Livewire\{WithToast};
 use Livewire\Attributes\{Layout, Title};
 
 new class extends Component {
+  use WithToast;
   #[Layout("components.layouts.base")]
   #[Title("Tambah Hafalan")]
   public Hifz $hifz;
@@ -46,6 +48,7 @@ new class extends Component {
   public function edit()
   {
     $this->form->update();
+    $this->toast("Berhasil mengedit hafalan", "success");
     $this->redirect(route("hifz.index"), navigate: true);
   }
 

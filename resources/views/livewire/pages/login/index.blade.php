@@ -2,9 +2,11 @@
 
 use Livewire\Volt\Component;
 use App\Livewire\Forms\AuthForm;
+use App\Traits\Livewire\WithToast;
 use Livewire\Attributes\{Title, Layout};
 
 new class extends Component {
+  use WithToast;
   #[Title("Login | Rumah Tahfiz")]
   #[Layout("components.layouts.app")]
   public AuthForm $form;
@@ -13,6 +15,9 @@ new class extends Component {
   {
     if ($this->form->login()) {
       $this->redirectRoute("home");
+      $this->toast("Login Berhasil", "success");
+    } else {
+      $this->toast("Username / Password Salah", "error");
     }
   }
 }; ?>

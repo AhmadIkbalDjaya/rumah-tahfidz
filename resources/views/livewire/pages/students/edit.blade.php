@@ -1,12 +1,14 @@
 <?php
 
-use Livewire\Volt\Component;
 use App\Models\Claass;
 use App\Models\Student;
+use Livewire\Volt\Component;
 use App\Livewire\Forms\StudentForm;
+use App\Traits\Livewire\{WithToast};
 use Livewire\Attributes\{Layout, Title};
 
 new class extends Component {
+  use WithToast;
   #[Layout("components.layouts.base")]
   #[Title("Edit Santri")]
   public Student $student;
@@ -30,6 +32,7 @@ new class extends Component {
   public function edit()
   {
     $this->form->update();
+    $this->toast("Berhasil mengedit santri", "success");
     $this->redirect(route("students.index"), navigate: true);
   }
 }; ?>

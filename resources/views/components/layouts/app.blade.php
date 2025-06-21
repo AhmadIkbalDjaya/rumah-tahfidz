@@ -15,6 +15,7 @@
     @vite(["resources/css/app.css", "resources/js/app.js"])
   </head>
   <body>
+    <x-toast />
     {{ $slot }}
   </body>
 </html>

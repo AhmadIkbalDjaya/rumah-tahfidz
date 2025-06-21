@@ -1,11 +1,13 @@
 <?php
 
-use Livewire\Volt\Component;
 use App\Models\Claass;
+use Livewire\Volt\Component;
 use App\Livewire\Forms\StudentForm;
+use App\Traits\Livewire\{WithToast};
 use Livewire\Attributes\{Layout, Title};
 
 new class extends Component {
+  use WithToast;
   #[Layout("components.layouts.base")]
   #[Title("Tambah Santri")]
   public StudentForm $form;
@@ -24,7 +26,8 @@ new class extends Component {
   public function store()
   {
     $this->form->store();
-    $this->redirect(route("students.index"), navigate: true);
+    $this->redirect(route("students.index"));
+    $this->toast("Data Santri Berhasil Ditambahkan", "success");
   }
 }; ?>
 
@@ -40,7 +43,7 @@ new class extends Component {
     </div>
     <div class="bg-base-100 my-3 rounded p-4 shadow">
       <h3 class="text-base font-medium text-gray-800">Data Santri</h3>
-      <div class="grid gap-x-10 md:grid-cols-3">
+      <div class="grid gap-x-5 md:grid-cols-3">
         <fieldset class="fieldset">
           <legend class="fieldset-legend">Nama Santri</legend>
           <input
@@ -56,7 +59,7 @@ new class extends Component {
         <fieldset class="fieldset">
           <legend class="fieldset-legend">Kelas</legend>
           <select wire:model.live="form.claass_id" class="select">
-            <option disabled selected>Pilih Kelas</option>
+            <option value="" disabled selected>Pilih Kelas</option>
             @foreach ($claases as $claass)
               <option value="{{ $claass->id }}">{{ $claass->name }}</option>
             @endforeach
@@ -66,7 +69,7 @@ new class extends Component {
           @enderror
         </fieldset>
         <fieldset class="fieldset">
-          <legend class="fieldset-legend">Nama Waku</legend>
+          <legend class="fieldset-legend">Nama Wali</legend>
           <input
             wire:model.live="form.guardian_name"
             type="text"

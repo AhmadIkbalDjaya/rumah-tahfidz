@@ -1,12 +1,14 @@
 <?php
 
-use Livewire\Volt\Component;
-use App\Models\Student;
 use App\Models\Surah;
+use App\Models\Student;
+use Livewire\Volt\Component;
 use App\Livewire\Forms\HifzForm;
+use App\Traits\Livewire\{WithToast};
 use Livewire\Attributes\{Layout, Title};
 
 new class extends Component {
+  use WithToast;
   #[Layout("components.layouts.base")]
   #[Title("Tambah Hafalan")]
   public HifzForm $form;
@@ -40,6 +42,7 @@ new class extends Component {
   {
     $this->form->store();
     $this->redirect(route("hifz.index"), navigate: true);
+    $this->toast("Data Hafalan Berhasil Ditambahkan", "success");
   }
 
   public function getSurahVarseCount($surah_id)

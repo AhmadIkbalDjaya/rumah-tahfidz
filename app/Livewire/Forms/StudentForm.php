@@ -12,7 +12,7 @@ class StudentForm extends Form
     #[Validate("required|max:255")]
     public $name;
     #[Validate("required|exists:claasses,id")]
-    public $claass_id;
+    public $claass_id = "";
     #[Validate("required|max:255")]
     public $guardian_name;
 

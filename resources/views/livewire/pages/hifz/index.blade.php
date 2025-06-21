@@ -4,10 +4,10 @@ use App\Models\Hifz;
 use Livewire\Volt\{Component};
 use App\Livewire\Forms\HifzForm;
 use Livewire\Attributes\{Layout, Title};
-use App\Traits\Livewire\Table\TableSearchPagination;
+use App\Traits\Livewire\{WithToast, Table\TableSearchPagination};
 
 new class extends Component {
-  use TableSearchPagination;
+  use TableSearchPagination, WithToast;
   #[Layout("components.layouts.base")]
   #[Title("Daftar Hafalan Santri")]
   public HifzForm $form;
@@ -46,6 +46,7 @@ new class extends Component {
   {
     $this->form->setHifz($hifz);
     $this->form->destroy();
+    $this->toast("Hafalan berhasil dihapus", "success");
   }
 }; ?>
 

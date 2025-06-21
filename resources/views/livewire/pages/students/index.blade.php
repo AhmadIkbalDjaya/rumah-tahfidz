@@ -4,10 +4,10 @@ use App\Models\Student;
 use Livewire\Volt\{Component};
 use App\Livewire\Forms\StudentForm;
 use Livewire\Attributes\{Layout, Title};
-use App\Traits\Livewire\Table\TableSearchPagination;
+use App\Traits\Livewire\{WithToast, Table\TableSearchPagination};
 
 new class extends Component {
-  use TableSearchPagination;
+  use TableSearchPagination, WithToast;
   #[Layout("components.layouts.base")]
   #[Title("Daftar Santri")]
   public StudentForm $form;
@@ -35,6 +35,7 @@ new class extends Component {
   {
     $this->form->setStudent($student);
     $this->form->destroy();
+    $this->toast("Santri berhasil dihapus", "success");
   }
 }; ?>
 
