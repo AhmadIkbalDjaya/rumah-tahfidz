@@ -38,7 +38,17 @@ new class extends Component {
   }
 }; ?>
 
-<div class="">
+<div
+  x-data="{
+    deleteData: null,
+    setDelete(data) {
+      this.deleteData = data
+    },
+    resetDelete() {
+      this.deleteData = null
+    },
+  }"
+>
   <div class="my-1.5 flex items-center justify-between">
     <h3 class="text-lg font-medium text-gray-800">Santri</h3>
     <x-breadcrumbs class="hidden md:block">
@@ -77,7 +87,10 @@ new class extends Component {
               <x-table.edit-action
                 :href="route('students.edit', ['student' => $student->id])"
               />
-              <x-table.delete-action wire:click="delete({{ $student->id }})" />
+              <x-table.delete-action
+                onclick="confirmDelete.showModal()"
+                x-on:click="setDelete({{ $student }})"
+              />
             </x-table.td>
           </tr>
         @endforeach
@@ -89,4 +102,38 @@ new class extends Component {
       <x-table.pagination :paginator="$students" />
     </div>
   </div>
+
+  <dialog id="confirmDelete" class="modal">
+    <div class="modal-box">
+      <div class="flex items-center justify-between">
+        <h3 class="text-lg font-bold">Konfirmasi Hapus!</h3>
+        <form method="dialog">
+          <button
+            x-on:click="resetDelete"
+            class="btn btn-sm btn-circle btn-ghost"
+          >
+            <x-icons.x class="h-5 w-5 font-medium" />
+          </button>
+        </form>
+      </div>
+      <p class="py-4">
+        Apakah Anda yakin ingin menghapus data ini?
+        <br />
+        Data yang telah dihapus tidak dapat dikembalikan.
+      </p>
+      <div class="modal-action">
+        <form method="dialog">
+          <button x-on:click="resetDelete" class="btn btn-sm btn-ghost">
+            Batal
+          </button>
+          <button
+            wire:click="delete(deleteData.id)"
+            class="btn btn-sm btn-error text-white"
+          >
+            Ya, Hapus
+          </button>
+        </form>
+      </div>
+    </div>
+  </dialog>
 </div>
