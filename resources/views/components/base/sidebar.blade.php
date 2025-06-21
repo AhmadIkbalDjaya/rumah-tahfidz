@@ -27,7 +27,7 @@
       >
         <a href="{{ route("home") }}" class="flex items-center gap-x-2.5">
           <span
-            class="{{ Request::is("/") ? "block" : "hidden" }} absolute -ms-6 h-full w-1 rounded-r-md bg-green-400 group-hover:block"
+            class="{{ Request::is("/") ? "block" : "hidden" }} absolute top-0 -ms-6 h-full w-1 rounded-r-md bg-green-400 group-hover:block"
           ></span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +65,7 @@
       >
         <a href="{{ route("students.index") }}" class="flex gap-x-2.5">
           <span
-            class="{{ Request::is("students*") ? "block" : "hidden" }} absolute -ms-6 h-full w-1 rounded-r-md bg-green-400 group-hover:block"
+            class="{{ Request::is("students*") ? "block" : "hidden" }} absolute top-0 -ms-6 h-full w-1 rounded-r-md bg-green-400 group-hover:block"
           ></span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -95,7 +95,7 @@
       >
         <a href="{{ route("hifz.index") }}" class="flex gap-x-2.5">
           <span
-            class="{{ Request::is("hifz*") ? "block" : "hidden" }} absolute -ms-6 h-full w-1 rounded-r-md bg-green-400 group-hover:block"
+            class="{{ Request::is("hifz*") ? "block" : "hidden" }} absolute top-0 -ms-6 h-full w-1 rounded-r-md bg-green-400 group-hover:block"
           ></span>
           <svg
             xmlns="http://www.w3.org/2000/svg"

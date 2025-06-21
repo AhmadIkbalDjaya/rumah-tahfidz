@@ -19,7 +19,10 @@ new class extends Component {
       ->when($this->search, function ($query) {
         $query
           ->where("name", "LIKE", "%$this->search%")
-          ->orWhere("guardian_name", "LIKE", "%$this->search%");
+          ->orWhere("guardian_name", "LIKE", "%$this->search%")
+          ->orWhereHas("claass", function ($query) {
+            $query->where("name", "LIKE", "%$this->search%");
+          });
       })
       ->latest()
       ->paginate($this->perpage);

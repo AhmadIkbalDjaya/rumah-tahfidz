@@ -10,15 +10,15 @@ class HifzForm extends Form
 {
     public ?Hifz $hifz;
     #[Validate("required|exists:students,id")]
-    public string $student_id;
+    public $student_id = "";
     #[Validate("required|exists:surahs,id")]
-    public string $surah_id;
-    #[Validate("required|numeric|min:1|max:114")]
+    public $surah_id = "";
+    #[Validate("required|numeric|min:1")]
     public $verse_start;
-    #[Validate("required|integer|min:1|max:114")]
+    #[Validate("required|integer|min:1|gte:verse_start")]
     public $verse_end;
     #[Validate("required|integer|min:1|max:100")]
-    public $review_count;
+    public $review_count = 1;
     #[Validate("required|max:255")]
     public $score;
     #[Validate("required|date")]
@@ -50,7 +50,7 @@ class HifzForm extends Form
         $this->reset();
     }
 
-    public function delete(): void
+    public function destroy(): void
     {
         $this->hifz->delete();
         $this->reset();
