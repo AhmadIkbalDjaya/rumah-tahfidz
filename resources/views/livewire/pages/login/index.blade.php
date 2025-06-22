@@ -46,9 +46,7 @@ new class extends Component {
             placeholder="Username"
           />
         </label>
-        @error("form.username")
-          <x-input.error-message field="form.username" />
-        @enderror
+        <x-input.error name="form.username" />
       </fieldset>
       <fieldset class="fieldset">
         <label
@@ -77,9 +75,7 @@ new class extends Component {
             class="h-6 w-6 cursor-pointer text-green-400"
           />
         </label>
-        @error("form.password")
-          <x-input.error-message field="form.password" />
-        @enderror
+        <x-input.error name="form.password" />
       </fieldset>
       <button
         wire:target="login"

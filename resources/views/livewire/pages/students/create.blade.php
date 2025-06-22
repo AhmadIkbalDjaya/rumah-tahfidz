@@ -52,9 +52,7 @@ new class extends Component {
             class="input"
             placeholder="Masukkan Nama Santri"
           />
-          @error("form.name")
-            <x-input.error-message field="form.name" />
-          @enderror
+          <x-input.error name="form.name" />
         </fieldset>
         <fieldset class="fieldset">
           <legend class="fieldset-legend">Kelas</legend>
@@ -64,9 +62,7 @@ new class extends Component {
               <option value="{{ $claass->id }}">{{ $claass->name }}</option>
             @endforeach
           </select>
-          @error("form.claass_id")
-            <x-input.error-message field="form.claass_id" />
-          @enderror
+          <x-input.error name="form.claass_id" />
         </fieldset>
         <fieldset class="fieldset">
           <legend class="fieldset-legend">Nama Wali</legend>
@@ -76,9 +72,7 @@ new class extends Component {
             class="input"
             placeholder="Masukkan Nama Wali"
           />
-          @error("form.guardian_name")
-            <x-input.error-message field="form.guardian_name" />
-          @enderror
+          <x-input.error name="form.guardian_name" />
         </fieldset>
       </div>
     </div>

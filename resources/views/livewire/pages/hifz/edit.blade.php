@@ -157,9 +157,7 @@ new class extends Component {
               </ul>
             </div>
           </div>
-          @error("form.student_id")
-            <x-input.error-message field="form.student_id" />
-          @enderror
+          <x-input.error name="form.student_id" />
         </fieldset>
         <fieldset class="fieldset">
           <legend class="fieldset-legend">Zidayah</legend>
@@ -217,9 +215,7 @@ new class extends Component {
               </ul>
             </div>
           </div>
-          @error("form.surah_id")
-            <x-input.error-message field="form.surah_id" />
-          @enderror
+          <x-input.error name="form.surah_id" />
         </fieldset>
         <fieldset class="fieldset">
           <legend class="fieldset-legend">Ayat Pertama</legend>
@@ -233,9 +229,7 @@ new class extends Component {
               ></option>
             </template>
           </select>
-          @error("form.verse_start")
-            <x-input.error-message field="form.verse_start" />
-          @enderror
+          <x-input.error name="form.verse_start" />
         </fieldset>
         <fieldset class="fieldset">
           <legend class="fieldset-legend">Ayat Terakhir</legend>
@@ -249,9 +243,7 @@ new class extends Component {
               ></option>
             </template>
           </select>
-          @error("form.verse_end")
-            <x-input.error-message field="form.verse_end" />
-          @enderror
+          <x-input.error name="form.verse_end" />
         </fieldset>
         <fieldset class="fieldset">
           <legend class="fieldset-legend">Muroja'ah</legend>
@@ -262,9 +254,7 @@ new class extends Component {
             placeholder=""
             min="1"
           />
-          @error("form.review_count")
-            <x-input.error-message field="form.review_count" />
-          @enderror
+          <x-input.error name="form.review_count" />
         </fieldset>
         <fieldset class="fieldset">
           <legend class="fieldset-legend">Nilai</legend>
@@ -274,9 +264,7 @@ new class extends Component {
             class="input w-full"
             placeholder="Masukkan Nilai"
           />
-          @error("form.score")
-            <x-input.error-message field="form.score" />
-          @enderror
+          <x-input.error name="form.score" />
         </fieldset>
         <fieldset class="fieldset col-span-full">
           <legend class="fieldset-legend">Tanggal dan Waktu</legend>
@@ -286,9 +274,7 @@ new class extends Component {
             class="input w-full"
             placeholder="Masukkan Nilai"
           />
-          @error("form.recorded_at")
-            <x-input.error-message field="form.recorded_at" />
-          @enderror
+          <x-input.error name="form.recorded_at" />
         </fieldset>
       </div>
     </div>
