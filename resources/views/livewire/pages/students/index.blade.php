@@ -85,6 +85,9 @@ new class extends Component {
             <x-table.td :label="$student->claass->name" class="text-center" />
             <x-table.td :label="$student->guardian_name" />
             <x-table.td class="flex items-center gap-x-2">
+              <x-table.show-action
+                :href="route('students.show', ['student' => $student->id])"
+              />
               <x-table.edit-action
                 :href="route('students.edit', ['student' => $student->id])"
               />

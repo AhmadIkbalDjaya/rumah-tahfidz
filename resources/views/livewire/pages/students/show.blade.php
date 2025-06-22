@@ -1,0 +1,212 @@
+<?php
+
+use App\Models\Hifz;
+use App\Models\Student;
+use Livewire\Volt\Component;
+use App\Livewire\Forms\HifzForm;
+use Livewire\Attributes\{Layout, Title};
+use App\Traits\Livewire\{WithToast, Table\TableSearchPagination};
+
+new class extends Component {
+  use TableSearchPagination, WithToast;
+  #[Layout("components.layouts.base")]
+  #[Title("Detail Santri")]
+  public Student $student;
+  public HifzForm $form;
+
+  public function with(): array
+  {
+    $hifzs = Hifz::select([
+      "id",
+      "student_id",
+      "surah_id",
+      "verse_start",
+      "verse_end",
+      "review_count",
+      "score",
+      "recorded_at",
+    ])
+      ->with(["student:id,name", "surah:id,name"])
+      ->where("student_id", $this->student->id)
+      ->when($this->search, function ($query) {
+        $query
+          ->whereHas("student", function ($query) {
+            $query->where("name", "LIKE", "%$this->search%");
+          })
+          ->orWhereHas("surah", function ($query) {
+            $query->where("name", "LIKE", "%$this->search%");
+          });
+      })
+      ->orderBy("recorded_at", "DESC")
+      ->paginate($this->perpage);
+
+    return [
+      "hifzs" => $hifzs,
+    ];
+  }
+
+  public function delete(Hifz $hifz)
+  {
+    $this->form->setHifz($hifz);
+    $this->form->destroy();
+    $this->toast("Hafalan berhasil dihapus", "success");
+  }
+}; ?>
+
+<div>
+  <div class="my-1.5 flex items-center justify-between">
+    <h1 class="text-lg font-medium">Detail Santri</h1>
+    <x-breadcrumbs class="hidden md:block">
+      <x-breadcrumbs.item label="Dashboard" :href="route('home')" />
+      <x-breadcrumbs.item label="Santri" :href="route('students.index')" />
+      <x-breadcrumbs.item label="Detail Santri" />
+    </x-breadcrumbs>
+  </div>
+  <div class="grid grid-cols-1 gap-x-5 gap-y-3 md:grid-cols-12">
+    <div class="card bg-base-100 p-4 shadow-sm md:col-span-8">
+      <h2 class="border-base-300 border-b pb-3 text-base font-medium">
+        Informasi Santri
+      </h2>
+      <div class="mt-3 grid grid-cols-2 gap-2">
+        <div class="">
+          <h5 class="font-medium">Nama Santri</h5>
+          <p>{{ $student->name }}</p>
+        </div>
+        <div class="">
+          <h5 class="font-medium">Nama Wali Santri</h5>
+          <p>{{ $student->guardian_name }}</p>
+        </div>
+        <div class="">
+          <h5 class="font-medium">Kelas</h5>
+          <p>{{ $student->claass?->name }}</p>
+        </div>
+        <div class="">
+          <h5 class="font-medium">Jumlah Zidayah</h5>
+          <p>{{ $student->hifzs->count() }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="card bg-base-100 p-4 shadow-sm md:col-span-4">
+      <div class="mt-3">
+        <h5 class="font-medium">Dibuat pada</h5>
+        <p>{{ $student->created_at->diffForHumans() }}</p>
+      </div>
+      <div class="mt-3">
+        <h5 class="font-medium">Diperbarui pada</h5>
+        <p>{{ $student->updated_at->diffForHumans() }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div
+    x-data="{
+      deleteData: null,
+      setDelete(data) {
+        this.deleteData = data
+      },
+      resetDelete() {
+        this.deleteData = null
+      },
+    }"
+    class="card bg-base-100 my-5 p-4 shadow"
+  >
+    <h2 class="text-base font-medium">Hafalan Santri</h2>
+    <div class="flex justify-between gap-x-5 py-4">
+      <x-table.search placeholder="Cari Hafalan" />
+      <a
+        wire:navigate.hover
+        href="{{ route("hifz.create", ["student_id" => $student->id]) }}"
+      >
+        <x-table.create-button label="Tambah Hafalan" />
+      </a>
+    </div>
+
+    <x-table>
+      <thead>
+        <tr>
+          <x-table.th class="px-3 text-center">No</x-table.th>
+          <x-table.th label="Zidayah" />
+          <x-table.th label="Muroja'ah" class="text-center" />
+          <x-table.th label="Nilai" class="text-center" />
+          <x-table.th label="Waktu Menghafal" />
+          <x-table.th label="Aksi" />
+        </tr>
+      </thead>
+      <tbody>
+        @foreach ($hifzs as $hifz)
+          <tr wire:key="{{ $hifz->id }}">
+            <x-table.th
+              :label="$hifzs->firstItem() + $loop->index"
+              class="px-3 text-center"
+            />
+            <x-table.td>
+              Surah&nbsp;{{ $hifz->surah->name }} {{ $hifz->verse_start }} -
+              {{ $hifz->verse_end }}
+            </x-table.td>
+            <x-table.td :label="$hifz->review_count" class="text-center" />
+            <x-table.td :label="$hifz->score" class="text-center" />
+            <x-table.td>
+              {{ date("d M Y - H:i", strtotime($hifz->recorded_at)) }}
+            </x-table.td>
+
+            <x-table.td class="flex items-center gap-x-2">
+              <x-table.edit-action
+                :href="route('hifz.edit', ['hifz' => $hifz->id, 'student_id' => $student->id])"
+              />
+              <x-table.delete-action
+                onclick="confirmDelete.showModal()"
+                x-on:click="setDelete({{ $hifz }})"
+              />
+            </x-table.td>
+          </tr>
+        @endforeach
+      </tbody>
+    </x-table>
+
+    <div class="flex justify-between gap-y-2 p-4">
+      <x-table.perpage />
+      <x-table.pagination :paginator="$hifzs" />
+    </div>
+
+    <dialog id="confirmDelete" class="modal">
+      <div class="modal-box">
+        <div class="flex items-center justify-between">
+          <h3 class="text-lg font-bold">Konfirmasi Hapus!</h3>
+          <form method="dialog">
+            <button
+              x-on:click="resetDelete"
+              class="btn btn-sm btn-circle btn-ghost"
+            >
+              <x-icons.x class="h-5 w-5 font-medium" />
+            </button>
+          </form>
+        </div>
+        <p class="py-4">
+          Apakah Anda yakin ingin menghapus data ini?
+          <br />
+          Data yang telah dihapus tidak dapat dikembalikan.
+        </p>
+        <div class="modal-action">
+          <form method="dialog">
+            <button x-on:click="resetDelete" class="btn btn-sm btn-ghost">
+              Batal
+            </button>
+            <button
+              wire:click="delete(deleteData.id)"
+              wire:target="delete"
+              wire:loading.attr="disabled"
+              class="btn btn-sm btn-error text-white"
+            >
+              <span
+                wire:loading
+                wire:target="delete"
+                class="loading loading-spinner loading-xs text-white"
+              ></span>
+              Ya, Hapus
+            </button>
+          </form>
+        </div>
+      </div>
+    </dialog>
+  </div>
+</div>

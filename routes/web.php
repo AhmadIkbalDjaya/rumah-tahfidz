@@ -10,6 +10,7 @@ Route::middleware(['auth'])->group(function () {
   Route::prefix("students")->name("students.")->group(function () {
     Volt::route("", "pages.students.index")->name("index");
     Volt::route("create", "pages.students.create")->name("create");
+    Volt::route("{student}", "pages.students.show")->name("show");
     Volt::route("{student}/edit", "pages.students.edit")->name("edit");
   });
   Route::prefix("hifz")->name("hifz.")->group(function () {

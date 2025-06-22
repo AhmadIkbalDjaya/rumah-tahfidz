@@ -6,7 +6,7 @@ use App\Models\Student;
 use Livewire\Volt\Component;
 use App\Livewire\Forms\HifzForm;
 use App\Traits\Livewire\{WithToast};
-use Livewire\Attributes\{Layout, Title};
+use Livewire\Attributes\{Layout, Title, Url};
 
 new class extends Component {
   use WithToast;
@@ -14,6 +14,8 @@ new class extends Component {
   #[Title("Tambah Hafalan")]
   public Hifz $hifz;
   public HifzForm $form;
+  #[Url("student_id")]
+  public $student_id;
   public $studentSearch;
   public $surahSearch;
 
@@ -49,7 +51,10 @@ new class extends Component {
   {
     $this->form->update();
     $this->toast("Berhasil mengedit hafalan", "success");
-    $this->redirect(route("hifz.index"), navigate: true);
+    $target_route = $this->student_id
+      ? route("students.show", ["student" => $this->student_id])
+      : route("hifz.index");
+    $this->redirect($target_route, navigate: true);
   }
 
   public function getSurahVarseCount($surah_id)
@@ -109,10 +114,11 @@ new class extends Component {
               @blur="setTimeout(() => { isOpen = false }, 200)"
               x-bind:readonly="selected != null"
               x-bind:value="selected != null ? selected : ''"
+              x-bind:disabled="@js($student_id) != null"
             />
             <span
               class="absolute top-3 right-3 z-10 cursor-pointer"
-              x-show="selected != null"
+              x-show="@js($student_id) ? false : selected != null"
               x-cloak
               x-on:click="
                 $wire.set('form.student_id', null),
@@ -288,7 +294,10 @@ new class extends Component {
     </div>
 
     <div class="flex justify-end gap-x-3">
-      <a wire:navigate.hover href="{{ route("hifz.index") }}">
+      <a
+        wire:navigate.hover
+        href="{{ $student_id ? route("students.show", ["student" => $student_id]) : route("hifz.index") }}"
+      >
         <button
           type="button"
           class="btn btn-sm btn-ghost flex items-center gap-x-2"
