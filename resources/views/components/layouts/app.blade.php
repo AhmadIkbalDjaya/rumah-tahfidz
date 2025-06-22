@@ -1,11 +1,24 @@
 <!DOCTYPE html>
-<html
-  lang="{{ str_replace("_", "-", app()->getLocale()) }}"
-  data-theme="light"
->
+<html lang="{{ str_replace("_", "-", app()->getLocale()) }}">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      function setTheme() {
+        try {
+          document.documentElement.setAttribute(
+            'data-theme',
+            localStorage.getItem('theme') || 'light',
+          );
+        } catch (e) {}
+      }
+
+      setTheme();
+
+      document.addEventListener('livewire:navigated', () => {
+        setTheme();
+      });
+    </script>
 
     <title>
       {{ isset($title) && $title != "" ? "$title - " . env("APP_NAME") : env("APP_NAME") }}

@@ -37,6 +37,7 @@ new class extends Component {
     </a>
   </div>
   <div class="flex gap-2">
+    <x-base.theme-toggle />
     <button
       wire:click="logout"
       wire:target="logout"
