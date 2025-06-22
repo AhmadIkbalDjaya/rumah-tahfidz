@@ -83,7 +83,7 @@ new class extends Component {
 >
   <form wire:submit="edit">
     <div class="my-1.5 flex items-center justify-between">
-      <h3 class="text-lg font-medium text-gray-800">Edit Hafalan</h3>
+      <h3 class="text-lg font-medium">Edit Hafalan</h3>
       <x-breadcrumbs class="hidden md:block">
         <x-breadcrumbs.item label="Dashboard" :href="route('home')" />
         <x-breadcrumbs.item
@@ -95,7 +95,7 @@ new class extends Component {
     </div>
 
     <div class="bg-base-100 my-3 rounded p-4 shadow">
-      <h3 class="text-base font-medium text-gray-800">Data Hafalan</h3>
+      <h3 class="text-base font-medium">Data Hafalan</h3>
       <div class="grid gap-x-10 md:grid-cols-2">
         <fieldset class="fieldset">
           <legend class="fieldset-legend">Santri</legend>
@@ -125,7 +125,7 @@ new class extends Component {
             <div
               x-show="isOpen"
               x-cloak
-              class="absolute z-10 mt-1 w-full rounded-md bg-white shadow-lg"
+              class="bg-base-100 absolute z-10 mt-1 w-full rounded-md shadow-lg"
             >
               <ul class="max-h-60 overflow-auto py-1">
                 @forelse ($students as $student)
@@ -138,7 +138,7 @@ new class extends Component {
                           (isOpen = false)
                       "
                       x-init="if (@js($hifz->student_id) == {{ $student->id }}) selected = @js($student->name)"
-                      class="w-full cursor-pointer px-4 py-2 text-left hover:bg-gray-100"
+                      class="w-full cursor-pointer px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-900"
                     >
                       {{ $student->name }}
                     </button>
@@ -186,7 +186,7 @@ new class extends Component {
             <div
               x-show="isOpen"
               x-cloak
-              class="absolute z-10 mt-1 w-full rounded-md bg-white shadow-lg"
+              class="bg-base-100 absolute z-10 mt-1 w-full rounded-md shadow-lg"
             >
               <ul class="max-h-60 overflow-auto py-1">
                 @forelse ($surahs as $surah)
@@ -200,7 +200,7 @@ new class extends Component {
                           getSurahVarseCount()
                       "
                       x-init="if (@js($hifz->surah_id) == {{ $surah->id }}) selected = @js($surah->name)"
-                      class="w-full cursor-pointer px-4 py-2 text-left hover:bg-gray-100"
+                      class="w-full cursor-pointer px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-900"
                     >
                       {{ $surah->name }}
                     </button>

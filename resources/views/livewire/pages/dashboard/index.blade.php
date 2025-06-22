@@ -31,7 +31,7 @@ new class extends Component {
 }; ?>
 
 <div>
-  <h3 class="text-lg font-medium text-gray-800">Dashboard</h3>
+  <h3 class="text-lg font-medium">Dashboard</h3>
   <div class="bg-base-100 my-3 rounded shadow">
     <div class="flex justify-between gap-x-5 p-4">
       <h2 class="text-base font-medium">Baru Saja Diakses</h2>

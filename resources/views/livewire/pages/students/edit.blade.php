@@ -40,7 +40,7 @@ new class extends Component {
 <div>
   <form wire:submit="edit">
     <div class="my-1.5 flex items-center justify-between">
-      <h3 class="text-lg font-medium text-gray-800">Edit Santri</h3>
+      <h3 class="text-lg font-medium">Edit Santri</h3>
       <x-breadcrumbs class="hidden md:block">
         <x-breadcrumbs.item label="Dashboard" :href="route('home')" />
         <x-breadcrumbs.item label="Santri" :href="route('students.index')" />
@@ -48,7 +48,7 @@ new class extends Component {
       </x-breadcrumbs>
     </div>
     <div class="bg-base-100 my-3 rounded p-4 shadow">
-      <h3 class="text-base font-medium text-gray-800">Data Santri</h3>
+      <h3 class="text-base font-medium">Data Santri</h3>
       <div class="grid gap-x-10 md:grid-cols-3">
         <fieldset class="fieldset">
           <legend class="fieldset-legend">Nama Santri</legend>

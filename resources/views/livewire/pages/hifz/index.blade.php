@@ -62,7 +62,7 @@ new class extends Component {
   }"
 >
   <div class="my-1.5 flex items-center justify-between">
-    <h3 class="text-lg font-medium text-gray-800">Daftar Hafalan Santri</h3>
+    <h3 class="text-lg font-medium">Daftar Hafalan Santri</h3>
     <x-breadcrumbs class="hidden md:block">
       <x-breadcrumbs.item label="Dashboard" :href="route('home')" />
       <x-breadcrumbs.item label="Daftar Hafalan" />
