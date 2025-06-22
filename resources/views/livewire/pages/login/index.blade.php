@@ -29,30 +29,54 @@ new class extends Component {
     class="bg-base-100 relative w-full rounded-xl p-10 px-5 text-center shadow md:w-md md:px-10"
   >
     <h2
-      class="absolute -top-22 right-0 left-0 w-full text-center text-2xl font-medium text-gray-50"
+      class="absolute -top-22 right-0 left-0 w-full text-center text-2xl font-medium text-gray-50 text-shadow-lg"
     >
-      Sistem Pengelolah Hafalan Al-Qur'an
+      Sistem Pengelolah
+      <br class="block md:hidden" />
+      Hafalan Al-Qur'an
     </h2>
     <form wire:submit="login" class="flex flex-col gap-y-9">
       <h2 class="mb-2 text-xl font-medium">Masuk ke Akun Anda</h2>
       <fieldset class="fieldset">
-        <input
-          type="text"
-          wire:model.live="form.username"
-          placeholder="Username"
-          class="input input-success w-full"
-        />
+        <label class="input input-success w-full">
+          <x-icons.user-filled class="text-green-400" />
+          <input
+            type="text"
+            wire:model.live="form.username"
+            placeholder="Username"
+          />
+        </label>
         @error("form.username")
           <x-input.error-message field="form.username" />
         @enderror
       </fieldset>
       <fieldset class="fieldset">
-        <input
-          type="password"
-          wire:model.live="form.password"
-          placeholder="password"
+        <label
+          x-data="{
+            show: false,
+            toggle() {
+              this.show = ! this.show
+            },
+          }"
           class="input input-success w-full"
-        />
+        >
+          <x-icons.lock class="text-green-400" />
+          <input
+            x-bind:type="show ? 'text' : 'password'"
+            wire:model.live="form.password"
+            placeholder="Password"
+          />
+          <x-icons.eye
+            x-show="!show"
+            x-on:click="toggle"
+            class="h-6 w-6 cursor-pointer text-green-400"
+          />
+          <x-icons.eye-off
+            x-show="show"
+            x-on:click="toggle"
+            class="h-6 w-6 cursor-pointer text-green-400"
+          />
+        </label>
         @error("form.password")
           <x-input.error-message field="form.password" />
         @enderror

@@ -1,0 +1,48 @@
+table users {
+  id int PK
+  username varchar [not null]
+  password varchar [not null]
+  created_at timestamp
+  updated_at timestamp
+}
+
+table claasses {
+  id int PK
+  name varchar [not null]
+}
+
+table students {
+  id int PK
+  name varchar [not null]
+  claass_id int [null]
+  guardian_name varchar [not null]
+  created_at timestamp
+  updated_at timestamp
+}
+Ref: students.claass_id > claasses.id [update: cascade, delete: set null]
+
+table surahs {
+  id int PK
+  name varchar [not null]
+  number int [not null]
+  varse_count int [not null]
+  juz_number int [not null]
+  meaning varchar [not null]
+  created_at timestamp
+  updated_at timestamp
+}
+
+table hifz {
+  id int PK
+  student_id int [not null]
+  surah_id int [not null]
+  verse_start int [not null]
+  verse_end int [not null]
+  review_count int  [not null, default: 1]
+  score varchar [not null]
+  recorded_at datetime [not null]
+  created_at timestamp
+  updated_at timestamp
+}
+Ref: hifz.student_id > students.id [update: cascade, delete: cascade]
+Ref: hifz.surah_id > surahs.id [update: cascade, delete: cascade]

@@ -19,9 +19,7 @@ class DatabaseSeeder extends Seeder
         ]);
         $this->call([
             ClaassSeeder::class,
-            StudentSeeder::class,
             SurahSeeder::class,
-            HifzSeeder::class,
         ]);
     }
 }
