@@ -3,7 +3,7 @@
 use App\Models\Hifz;
 use App\Models\Student;
 use Livewire\Volt\Component;
-use App\Livewire\Forms\HifzForm;
+use App\Livewire\Forms\{StudentForm, HifzForm};
 use Livewire\Attributes\{Layout, Title};
 use App\Traits\Livewire\{WithToast, Table\TableSearchPagination};
 
@@ -12,7 +12,8 @@ new class extends Component {
   #[Layout("components.layouts.base")]
   #[Title("Detail Santri")]
   public Student $student;
-  public HifzForm $form;
+  public StudentForm $form;
+  public HifzForm $hifzForm;
 
   public function with(): array
   {
@@ -45,10 +46,18 @@ new class extends Component {
     ];
   }
 
-  public function delete(Hifz $hifz)
+  public function delete(Student $student)
   {
-    $this->form->setHifz($hifz);
+    $this->form->setStudent($student);
     $this->form->destroy();
+    $this->redirect(route("students.index"), navigate: true);
+    $this->toast("Santri berhasil dihapus", "success");
+  }
+
+  public function deleteHifz(Hifz $hifz)
+  {
+    $this->hifzForm->setHifz($hifz);
+    $this->hifzForm->destroy();
     $this->toast("Hafalan berhasil dihapus", "success");
   }
 }; ?>
@@ -61,6 +70,24 @@ new class extends Component {
       <x-breadcrumbs.item label="Santri" :href="route('students.index')" />
       <x-breadcrumbs.item label="Detail Santri" />
     </x-breadcrumbs>
+  </div>
+  <div class="mb-3 md:text-end">
+    <a
+      wire:navigate.hover
+      href="{{ route("students.edit", ["student" => $student->id, "student_id" => $student->id]) }}"
+    >
+      <button class="btn btn-warning btn-sm text-white">
+        <x-icons.edit class="h-4 w-4" />
+        <span class="">Edit</span>
+      </button>
+    </a>
+    <button
+      onclick="confirmDelete.showModal()"
+      class="btn btn-error btn-sm text-white"
+    >
+      <x-icons.trash class="h-4 w-4" />
+      <span class="">Hapus</span>
+    </button>
   </div>
   <div class="grid grid-cols-1 gap-x-5 gap-y-3 md:grid-cols-12">
     <div class="card bg-base-100 p-4 shadow-sm md:col-span-8">
@@ -154,7 +181,7 @@ new class extends Component {
                 :href="route('hifz.edit', ['hifz' => $hifz->id, 'student_id' => $student->id])"
               />
               <x-table.delete-action
-                onclick="confirmDelete.showModal()"
+                onclick="confirmDeleteHifz.showModal()"
                 x-on:click="setDelete({{ $hifz }})"
               />
             </x-table.td>
@@ -168,7 +195,7 @@ new class extends Component {
       <x-table.pagination :paginator="$hifzs" />
     </div>
 
-    <dialog id="confirmDelete" class="modal">
+    <dialog id="confirmDeleteHifz" class="modal">
       <div class="modal-box">
         <div class="flex items-center justify-between">
           <h3 class="text-lg font-bold">Konfirmasi Hapus!</h3>
@@ -192,14 +219,14 @@ new class extends Component {
               Batal
             </button>
             <button
-              wire:click="delete(deleteData.id)"
-              wire:target="delete"
+              wire:click="deleteHifz(deleteData.id)"
+              wire:target="deleteHifz"
               wire:loading.attr="disabled"
               class="btn btn-sm btn-error text-white"
             >
               <span
                 wire:loading
-                wire:target="delete"
+                wire:target="deleteHifz"
                 class="loading loading-spinner loading-xs text-white"
               ></span>
               Ya, Hapus
@@ -209,4 +236,45 @@ new class extends Component {
       </div>
     </dialog>
   </div>
+
+  <dialog id="confirmDelete" class="modal">
+    <div class="modal-box">
+      <div class="flex items-center justify-between">
+        <h3 class="text-lg font-bold">Konfirmasi Hapus!</h3>
+        <form method="dialog">
+          <button
+            x-on:click="resetDelete"
+            class="btn btn-sm btn-circle btn-ghost"
+          >
+            <x-icons.x class="h-5 w-5 font-medium" />
+          </button>
+        </form>
+      </div>
+      <p class="py-4">
+        Apakah Anda yakin ingin menghapus data ini?
+        <br />
+        Data yang telah dihapus tidak dapat dikembalikan.
+      </p>
+      <div class="modal-action">
+        <form method="dialog">
+          <button x-on:click="resetDelete" class="btn btn-sm btn-ghost">
+            Batal
+          </button>
+          <button
+            wire:click="delete({{ $student->id }})"
+            wire:target="delete"
+            wire:loading.attr="disabled"
+            class="btn btn-sm btn-error text-white"
+          >
+            <span
+              wire:loading
+              wire:target="delete"
+              class="loading loading-spinner loading-xs text-white"
+            ></span>
+            Ya, Hapus
+          </button>
+        </form>
+      </div>
+    </div>
+  </dialog>
 </div>

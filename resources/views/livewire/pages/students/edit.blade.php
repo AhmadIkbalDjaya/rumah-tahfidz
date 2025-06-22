@@ -5,7 +5,7 @@ use App\Models\Student;
 use Livewire\Volt\Component;
 use App\Livewire\Forms\StudentForm;
 use App\Traits\Livewire\{WithToast};
-use Livewire\Attributes\{Layout, Title};
+use Livewire\Attributes\{Layout, Title, Url};
 
 new class extends Component {
   use WithToast;
@@ -13,6 +13,8 @@ new class extends Component {
   #[Title("Edit Santri")]
   public Student $student;
   public StudentForm $form;
+  #[Url("student_id")]
+  public $student_id;
   public function mount()
   {
     $this->form->setStudent($this->student);
@@ -33,7 +35,10 @@ new class extends Component {
   {
     $this->form->update();
     $this->toast("Berhasil mengedit santri", "success");
-    $this->redirect(route("students.index"), navigate: true);
+    $target_route = $this->student_id
+      ? route("students.show", ["student" => $this->student_id])
+      : route("students.index");
+    $this->redirect($target_route, navigate: true);
   }
 }; ?>
 
@@ -89,7 +94,10 @@ new class extends Component {
       </div>
     </div>
     <div class="flex justify-end gap-x-3">
-      <a wire:navigate.hover href="{{ route("students.index") }}">
+      <a
+        wire:navigate.hover
+        href="{{ $student_id ? route("students.show", ["student" => $student_id]) : route("students.index") }}"
+      >
         <button
           type="button"
           class="btn btn-sm btn-ghost flex items-center gap-x-2"
