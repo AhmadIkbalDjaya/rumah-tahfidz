@@ -67,9 +67,9 @@ new class extends Component {
     <x-table>
       <thead>
         <tr>
-          <x-table.th label="No" class="px-1 text-center" />
+          <x-table.th class="px-2 text-center">No</x-table.th>
           <x-table.th label="Nama" />
-          <x-table.th label="Kelas" />
+          <x-table.th label="Kelas" class="text-center" />
           <x-table.th label="Nama Wali" />
           <x-table.th label="Aksi" />
         </tr>
@@ -79,10 +79,10 @@ new class extends Component {
           <tr wire:key="{{ $student->id }}">
             <x-table.th
               :label="$students->firstItem() + $loop->index"
-              class="px-1 text-center"
+              class="px-2 text-center"
             />
             <x-table.td :label="$student->name" />
-            <x-table.td :label="$student->claass->name" />
+            <x-table.td :label="$student->claass->name" class="text-center" />
             <x-table.td :label="$student->guardian_name" />
             <x-table.td class="flex items-center gap-x-2">
               <x-table.edit-action
@@ -129,8 +129,15 @@ new class extends Component {
           </button>
           <button
             wire:click="delete(deleteData.id)"
+            wire:target="delete"
+            wire:loading.attr="disabled"
             class="btn btn-sm btn-error text-white"
           >
+            <span
+              wire:loading
+              wire:target="delete"
+              class="loading loading-spinner loading-xs text-white"
+            ></span>
             Ya, Hapus
           </button>
         </form>

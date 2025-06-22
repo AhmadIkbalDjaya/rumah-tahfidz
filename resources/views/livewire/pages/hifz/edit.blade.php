@@ -120,7 +120,7 @@ new class extends Component {
                   $wire.set('studentSearch', '')
               "
             >
-              <x-icons.x />
+              <x-icons.x class="h-4 w-4" />
             </span>
             <div
               x-show="isOpen"
@@ -181,7 +181,7 @@ new class extends Component {
                   resetVerseCount
               "
             >
-              <x-icons.x />
+              <x-icons.x class="h-4 w-4" />
             </span>
             <div
               x-show="isOpen"
@@ -297,7 +297,17 @@ new class extends Component {
           Batal
         </button>
       </a>
-      <button type="submit" class="btn btn-sm btn-success text-white">
+      <button
+        wire:target="edit"
+        wire:loading.attr="disabled"
+        type="submit"
+        class="btn btn-sm btn-success text-white"
+      >
+        <span
+          wire:loading
+          wire:target="edit"
+          class="loading loading-spinner loading-xs text-white"
+        ></span>
         Simpan
       </button>
     </div>

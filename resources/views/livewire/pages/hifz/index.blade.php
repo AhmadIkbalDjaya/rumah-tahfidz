@@ -78,7 +78,7 @@ new class extends Component {
     <x-table>
       <thead>
         <tr>
-          <x-table.th label="No" class="px-3 text-center" />
+          <x-table.th class="px-3 text-center">No</x-table.th>
           <x-table.th label="Nama" />
           <x-table.th label="Zidayah" />
           <x-table.th label="Muroja'ah" class="text-center" />
@@ -150,8 +150,15 @@ new class extends Component {
           </button>
           <button
             wire:click="delete(deleteData.id)"
+            wire:target="delete"
+            wire:loading.attr="disabled"
             class="btn btn-sm btn-error text-white"
           >
+            <span
+              wire:loading
+              wire:target="delete"
+              class="loading loading-spinner loading-xs text-white"
+            ></span>
             Ya, Hapus
           </button>
         </form>

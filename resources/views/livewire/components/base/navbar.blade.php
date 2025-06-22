@@ -33,8 +33,24 @@ new class extends Component {
     </a>
   </div>
   <div class="flex gap-2">
-    <button wire:click="logout" class="cursor-pointer">
-      <x-icons.logout class="h-6 w-6 text-red-600" />
+    <button
+      wire:click="logout"
+      wire:target="logout"
+      wire:loading.attr="disabled"
+      wire:loading.class.remove="cursor-pointer"
+      class="cursor-pointer"
+      type="button"
+    >
+      <span
+        wire:loading
+        wire:target="logout"
+        class="loading loading-spinner loading-sm text-red-600"
+      ></span>
+      <x-icons.logout
+        wire:target="logout"
+        wire:loading.class="hidden"
+        class="h-6 w-6 text-red-600"
+      />
     </button>
   </div>
 </div>

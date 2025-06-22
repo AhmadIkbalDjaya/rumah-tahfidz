@@ -98,7 +98,17 @@ new class extends Component {
           Batal
         </button>
       </a>
-      <button type="submit" class="btn btn-sm btn-success text-white">
+      <button
+        wire:target="edit"
+        wire:loading.attr="disabled"
+        type="submit"
+        class="btn btn-sm btn-success text-white"
+      >
+        <span
+          wire:loading
+          wire:target="edit"
+          class="loading loading-spinner loading-xs text-white"
+        ></span>
         Simpan
       </button>
     </div>

@@ -58,7 +58,19 @@ new class extends Component {
           <x-input.error-message field="form.password" />
         @enderror
       </fieldset>
-      <button type="submit" class="btn btn-success text-white">Login</button>
+      <button
+        wire:target="login"
+        wire:loading.attr="disabled"
+        type="submit"
+        class="btn btn-success text-white"
+      >
+        <span
+          wire:loading
+          wire:target="login"
+          class="loading loading-spinner loading-xs text-white"
+        ></span>
+        Login
+      </button>
     </form>
   </div>
 </div>
