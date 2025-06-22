@@ -23,8 +23,7 @@ new class extends Component {
 }; ?>
 
 <div
-  class="grid h-screen w-screen place-items-center bg-green-200 bg-cover bg-center"
-  style="background-image: url('/assets/images/bg-login.png')"
+  class="grid h-screen w-screen place-items-center bg-[#9af5b3] bg-[url(/public/assets/images/bg-login.webp)] bg-cover bg-center dark:bg-[#00101F] dark:bg-[url(/public/assets/images/bg-login-dark.webp)]"
 >
   <div
     class="bg-base-100 relative w-full rounded-xl p-10 px-5 text-center shadow md:w-md md:px-10"

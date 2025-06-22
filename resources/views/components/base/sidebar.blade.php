@@ -11,10 +11,11 @@
   >
     <div class="flex items-center gap-x-2.5">
       <img
-        src="{{ asset("assets/images/logo.png") }}"
+        src="{{ asset("assets/images/logo.webp") }}"
         alt=""
         srcset=""
         class="h-10 w-10"
+        loading="lazy"
       />
       <div class="text-lg font-semibold">
         <h5>Ponpes DDI</h5>
