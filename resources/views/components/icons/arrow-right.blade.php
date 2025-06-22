@@ -8,9 +8,10 @@
   stroke-width="2"
   stroke-linecap="round"
   stroke-linejoin="round"
-  {{ $attributes->merge(["class" => "icon icon-tabler icons-tabler-outline icon-tabler-x"]) }}
+  {{ $attributes->merge(["class" => "icon icon-tabler icons-tabler-outline icon-tabler-arrow-right"]) }}
 >
   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M18 6l-12 12" />
-  <path d="M6 6l12 12" />
+  <path d="M5 12l14 0" />
+  <path d="M13 18l6 -6" />
+  <path d="M13 6l6 6" />
 </svg>
