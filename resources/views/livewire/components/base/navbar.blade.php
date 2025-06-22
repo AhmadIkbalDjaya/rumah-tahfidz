@@ -2,13 +2,17 @@
 
 use Livewire\Volt\Component;
 use App\Livewire\Forms\AuthForm;
+use App\Traits\Livewire\WithToast;
 
 new class extends Component {
+  use WithToast;
   public AuthForm $form;
   public function logout()
   {
     if ($this->form->logout()) {
-      $this->redirectRoute("login");
+      $this->redirect(route("login"), navigate: true);
+    } else {
+      $this->toast("Logout Gagal", "error");
     }
   }
 };
@@ -24,7 +28,7 @@ new class extends Component {
   </div>
   <div class="flex-1">
     <a
-      wire:navigate
+      wire:navigate.hover
       href="{{ route("home") }}"
       class="flex w-full items-center justify-center text-xl font-semibold md:w-fit md:justify-start"
     >

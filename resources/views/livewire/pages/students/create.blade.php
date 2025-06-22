@@ -26,8 +26,8 @@ new class extends Component {
   public function store()
   {
     $this->form->store();
-    $this->redirect(route("students.index"));
     $this->toast("Data Santri Berhasil Ditambahkan", "success");
+    $this->redirect(route("students.index"), navigate: true);
   }
 }; ?>
 
@@ -83,7 +83,7 @@ new class extends Component {
       </div>
     </div>
     <div class="flex justify-end gap-x-3">
-      <a href="{{ route("students.index") }}">
+      <a wire:navigate.hover href="{{ route("students.index") }}">
         <button
           type="button"
           class="btn btn-sm btn-ghost flex items-center gap-x-2"

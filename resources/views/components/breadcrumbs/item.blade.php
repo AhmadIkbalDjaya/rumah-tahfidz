@@ -5,8 +5,12 @@
 
 <li>
   @if ($href)
-    <a href="{{ $href }}">{{ $label ? __($label) : $slot }}</a>
+    <a wire:navigate.hover href="{{ $href }}" {{ $attributes }}>
+      {{ $label ? __($label) : $slot }}
+    </a>
   @else
-    {{ $label ? __($label) : $slot }}
+    <span {{ $attributes }}>
+      {{ $label ? __($label) : $slot }}
+    </span>
   @endif
 </li>

@@ -71,7 +71,7 @@ new class extends Component {
   <div class="bg-base-100 my-3 rounded shadow">
     <div class="flex justify-between gap-x-5 p-4">
       <x-table.search placeholder="Cari Hafalan" />
-      <a href="{{ route("hifz.create") }}">
+      <a wire:navigate.hover href="{{ route("hifz.create") }}">
         <x-table.create-button label="Tambah Hafalan" />
       </a>
     </div>

@@ -25,7 +25,11 @@
       <li
         class="{{ Request::is("/") ? "bg-green-50" : "" }} group relative mx-2.5 mb-2 rounded-md px-2 py-1 text-gray-600 hover:bg-green-50"
       >
-        <a href="{{ route("home") }}" class="flex items-center gap-x-2.5">
+        <a
+          wire:navigate.hover
+          href="{{ route("home") }}"
+          class="flex items-center gap-x-2.5"
+        >
           <span
             class="{{ Request::is("/") ? "block" : "hidden" }} absolute top-0 -ms-6 h-full w-1 rounded-r-md bg-green-400 group-hover:block"
           ></span>
@@ -42,7 +46,11 @@
       <li
         class="{{ Request::is("students*") ? "bg-green-50" : "" }} group relative mx-2.5 mb-2 rounded-md px-2 py-1 text-gray-600 hover:bg-green-50"
       >
-        <a href="{{ route("students.index") }}" class="flex gap-x-2.5">
+        <a
+          wire:navigate.hover
+          href="{{ route("students.index") }}"
+          class="flex gap-x-2.5"
+        >
           <span
             class="{{ Request::is("students*") ? "block" : "hidden" }} absolute top-0 -ms-6 h-full w-1 rounded-r-md bg-green-400 group-hover:block"
           ></span>
@@ -59,7 +67,11 @@
       <li
         class="{{ Request::is("hifz*") ? "bg-green-50" : "" }} group relative mx-2.5 mb-2 rounded-md px-2 py-1 text-gray-600 hover:bg-green-50"
       >
-        <a href="{{ route("hifz.index") }}" class="flex gap-x-2.5">
+        <a
+          wire:navigate.hover
+          href="{{ route("hifz.index") }}"
+          class="flex gap-x-2.5"
+        >
           <span
             class="{{ Request::is("hifz*") ? "block" : "hidden" }} absolute top-0 -ms-6 h-full w-1 rounded-r-md bg-green-400 group-hover:block"
           ></span>

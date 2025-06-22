@@ -7,14 +7,14 @@ use Livewire\Attributes\{Title, Layout};
 
 new class extends Component {
   use WithToast;
-  #[Title("Login | Rumah Tahfiz")]
+  #[Title("Login")]
   #[Layout("components.layouts.app")]
   public AuthForm $form;
 
   public function login()
   {
     if ($this->form->login()) {
-      $this->redirectRoute("home");
+      $this->redirect(route("home"), navigate: true);
       $this->toast("Login Berhasil", "success");
     } else {
       $this->toast("Username / Password Salah", "error");
