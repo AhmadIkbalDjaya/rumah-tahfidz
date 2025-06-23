@@ -50,17 +50,7 @@ new class extends Component {
   }
 }; ?>
 
-<div
-  x-data="{
-    deleteData: null,
-    setDelete(data) {
-      this.deleteData = data
-    },
-    resetDelete() {
-      this.deleteData = null
-    },
-  }"
->
+<div x-data="delete_data">
   <div class="my-1.5 flex items-center justify-between">
     <h3 class="text-lg font-medium">Daftar Hafalan Santri</h3>
     <x-breadcrumbs class="hidden md:block">

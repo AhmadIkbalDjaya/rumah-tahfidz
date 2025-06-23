@@ -49,15 +49,7 @@ new class extends Component {
         <x-input.error name="form.username" />
       </fieldset>
       <fieldset class="fieldset">
-        <label
-          x-data="{
-            show: false,
-            toggle() {
-              this.show = ! this.show
-            },
-          }"
-          class="input input-success w-full"
-        >
+        <label x-data="password_show" class="input input-success w-full">
           <x-icons.lock class="text-green-400" />
           <input
             x-bind:type="show ? 'text' : 'password'"

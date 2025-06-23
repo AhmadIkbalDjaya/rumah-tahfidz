@@ -30,5 +30,6 @@
   <body>
     <x-toast />
     {{ $slot }}
+    <script src="{{ asset("assets/js/alpine-data.js") }}"></script>
   </body>
 </html>

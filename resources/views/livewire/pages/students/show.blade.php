@@ -125,18 +125,7 @@ new class extends Component {
     </div>
   </div>
 
-  <div
-    x-data="{
-      deleteData: null,
-      setDelete(data) {
-        this.deleteData = data
-      },
-      resetDelete() {
-        this.deleteData = null
-      },
-    }"
-    class="card bg-base-100 my-5 p-4 shadow"
-  >
+  <div x-data="delete_data" class="card bg-base-100 my-5 p-4 shadow">
     <h2 class="text-base font-medium">Hafalan Santri</h2>
     <div class="flex justify-between gap-x-5 py-4">
       <x-table.search placeholder="Cari Hafalan" />
