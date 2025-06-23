@@ -37,6 +37,17 @@ new class extends Component {
     $this->form->destroy();
     $this->toast("Santri berhasil dihapus", "success");
   }
+
+  public function bulkDelete(array $ids)
+  {
+    $this->form->bulkDestroy($ids);
+    $this->toast("Data terpilih berhasil dihapus", "success");
+  }
+
+  public function getAllIdd()
+  {
+    return Student::pluck("id");
+  }
 }; ?>
 
 <div x-data="delete_data">
@@ -47,16 +58,37 @@ new class extends Component {
       <x-breadcrumbs.item label="Santri" />
     </x-breadcrumbs>
   </div>
-  <div class="bg-base-100 my-3 rounded shadow">
+  <div
+    x-data="table_selected({{ $students->total() }}, 'getAllIdd')"
+    class="bg-base-100 my-3 rounded shadow"
+  >
     <div class="flex justify-between gap-x-5 p-4">
       <x-table.search placeholder="Cari Santri" />
-      <a wire:navigate.hover href="{{ route("students.create") }}">
-        <x-table.create-button label="Tambah Santri" />
-      </a>
+      <div class="flex w-fit gap-x-1.5">
+        <x-table.bulk.dropdown x-show="selected.length > 0">
+          <x-table.bulk.delete-action modal_id="confirmBulkDelete" />
+        </x-table.bulk.dropdown>
+        <x-modal.delete
+          title="Konfirmasi Hapus data terpilih?"
+          id="confirmBulkDelete"
+          wire:confirm="bulkDelete(selected)"
+          wire:target="bulkDelete"
+          x-on:confirm="unselectAll"
+        />
+        <a wire:navigate.hover href="{{ route("students.create") }}">
+          <x-table.create-button label="Tambah Santri" />
+        </a>
+      </div>
     </div>
+    <x-table.selected-info />
     <x-table>
       <thead>
         <tr>
+          <x-table.th.checkbox
+            id="selectAllData"
+            x-bind:checked="selected.length == total_data"
+            x-on:click="toggleSelectAll"
+          />
           <x-table.th class="px-2 text-center">No</x-table.th>
           <x-table.th label="Nama" />
           <x-table.th label="Kelas" class="text-center" />
@@ -67,6 +99,11 @@ new class extends Component {
       <tbody>
         @foreach ($students as $student)
           <tr wire:key="{{ $student->id }}">
+            <x-table.th.checkbox
+              id="data-checkbox-{{ $student->id }}"
+              :value="$student->id"
+              x-model="selected"
+            />
             <x-table.th
               :label="$students->firstItem() + $loop->index"
               class="px-2 text-center"
@@ -104,3 +141,27 @@ new class extends Component {
     x-on:close="resetDelete"
   />
 </div>
+
+{{--
+  @script
+  <script>
+  Alpine.data('table_selected', (total_data, getAllId) => ({
+  selected: [],
+  total_data: total_data,
+  toggleSelectAll() {
+  if (this.selected.length == this.total_data) {
+  this.selected = [];
+  } else {
+  $wire[getAllId]().then((res) => {
+  this.selected = res;
+  console.log(this.selected.length == this.total_data);
+  });
+  }
+  },
+  unselectAll() {
+  this.selected = [];
+  },
+  }));
+  </script>
+  @endscript
+--}}

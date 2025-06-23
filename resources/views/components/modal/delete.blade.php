@@ -38,6 +38,7 @@
           @if($attributes->get("wire:confirm"))wire:click="{{ $attributes->get("wire:confirm") }}"@endif
           wire:target="{{ $attributes->get("wire:target") }}"
           wire:loading.attr="disabled"
+          x-on:click="{{ $attributes->get("x-on:confirm") }}"
           class="btn btn-sm btn-error text-white"
         >
           <span

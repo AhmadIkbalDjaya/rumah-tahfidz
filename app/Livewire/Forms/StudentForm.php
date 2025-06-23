@@ -43,4 +43,10 @@ class StudentForm extends Form
         $this->student->delete();
         $this->reset();
     }
+
+    public function bulkDestroy($ids): void
+    {
+        Student::whereIn('id', $ids)->delete();
+        $this->reset();
+    }
 }

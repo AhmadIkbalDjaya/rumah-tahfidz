@@ -45,7 +45,7 @@ new class extends Component {
     <x-table>
       <thead>
         <tr>
-          <x-table.th label="No" class="px-3 text-center" />
+          <x-table.th class="px-3 text-center">No</x-table.th>
           <x-table.th label="Nama" />
           <x-table.th label="Zidayah" />
           <x-table.th label="Muroja'ah" class="text-center" />
