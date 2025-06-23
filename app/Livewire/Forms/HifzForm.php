@@ -55,4 +55,10 @@ class HifzForm extends Form
         $this->hifz->delete();
         $this->reset();
     }
+
+    public function bulkDestroy(array $hifzIds): void
+    {
+        Hifz::whereIn('id', $hifzIds)->delete();
+        $this->reset();
+    }
 }

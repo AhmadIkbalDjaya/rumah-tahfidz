@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Student;
+use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -44,7 +45,7 @@ class StudentForm extends Form
         $this->reset();
     }
 
-    public function bulkDestroy($ids): void
+    public function bulkDestroy(array $ids): void
     {
         Student::whereIn('id', $ids)->delete();
         $this->reset();

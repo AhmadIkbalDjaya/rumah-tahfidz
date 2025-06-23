@@ -31,22 +31,22 @@ new class extends Component {
     ];
   }
 
-  public function delete(Student $student)
+  public function delete(Student $student): void
   {
     $this->form->setStudent($student);
     $this->form->destroy();
     $this->toast("Santri berhasil dihapus", "success");
   }
 
-  public function bulkDelete(array $ids)
+  public function bulkDelete(array $ids): void
   {
     $this->form->bulkDestroy($ids);
     $this->toast("Data terpilih berhasil dihapus", "success");
   }
 
-  public function getAllIdd()
+  public function getAllId(): array
   {
-    return Student::pluck("id");
+    return Student::pluck("id")->toArray();
   }
 }; ?>
 
@@ -59,7 +59,7 @@ new class extends Component {
     </x-breadcrumbs>
   </div>
   <div
-    x-data="table_selected({{ $students->total() }}, 'getAllIdd')"
+    x-data="table_selected({{ $students->total() }}, 'getAllId')"
     class="bg-base-100 my-3 rounded shadow"
   >
     <div class="flex justify-between gap-x-5 p-4">
@@ -71,22 +71,26 @@ new class extends Component {
         <x-modal.delete
           title="Konfirmasi Hapus data terpilih?"
           id="confirmBulkDelete"
-          wire:confirm="bulkDelete(selected)"
           wire:target="bulkDelete"
-          x-on:confirm="unselectAll"
+          x-on:confirm="$wire.bulkDelete(selected); unselectAll()"
         />
         <a wire:navigate.hover href="{{ route("students.create") }}">
           <x-table.create-button label="Tambah Santri" />
         </a>
       </div>
     </div>
-    <x-table.selected-info />
+    <x-table.selection-bar
+      selectedLength="selected.length"
+      totalData="{{ $students->total() }}"
+      selectAll="selectAll"
+      unselectAll="unselectAll"
+    />
     <x-table>
       <thead>
         <tr>
           <x-table.th.checkbox
             id="selectAllData"
-            x-bind:checked="selected.length == total_data"
+            x-bind:checked="selected.length == total_data && total_data!=0"
             x-on:click="toggleSelectAll"
           />
           <x-table.th class="px-2 text-center">No</x-table.th>
@@ -141,27 +145,3 @@ new class extends Component {
     x-on:close="resetDelete"
   />
 </div>
-
-{{--
-  @script
-  <script>
-  Alpine.data('table_selected', (total_data, getAllId) => ({
-  selected: [],
-  total_data: total_data,
-  toggleSelectAll() {
-  if (this.selected.length == this.total_data) {
-  this.selected = [];
-  } else {
-  $wire[getAllId]().then((res) => {
-  this.selected = res;
-  console.log(this.selected.length == this.total_data);
-  });
-  }
-  },
-  unselectAll() {
-  this.selected = [];
-  },
-  }));
-  </script>
-  @endscript
---}}
