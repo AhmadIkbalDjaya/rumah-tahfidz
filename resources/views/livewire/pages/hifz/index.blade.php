@@ -115,44 +115,10 @@ new class extends Component {
     </div>
   </div>
 
-  <dialog id="confirmDelete" class="modal">
-    <div class="modal-box">
-      <div class="flex items-center justify-between">
-        <h3 class="text-lg font-bold">Konfirmasi Hapus!</h3>
-        <form method="dialog">
-          <button
-            x-on:click="resetDelete"
-            class="btn btn-sm btn-circle btn-ghost"
-          >
-            <x-icons.x class="h-5 w-5 font-medium" />
-          </button>
-        </form>
-      </div>
-      <p class="py-4">
-        Apakah Anda yakin ingin menghapus data ini?
-        <br />
-        Data yang telah dihapus tidak dapat dikembalikan.
-      </p>
-      <div class="modal-action">
-        <form method="dialog">
-          <button x-on:click="resetDelete" class="btn btn-sm btn-ghost">
-            Batal
-          </button>
-          <button
-            wire:click="delete(deleteData.id)"
-            wire:target="delete"
-            wire:loading.attr="disabled"
-            class="btn btn-sm btn-error text-white"
-          >
-            <span
-              wire:loading
-              wire:target="delete"
-              class="loading loading-spinner loading-xs text-white"
-            ></span>
-            Ya, Hapus
-          </button>
-        </form>
-      </div>
-    </div>
-  </dialog>
+  <x-modal.delete
+    id="confirmDelete"
+    wire:confirm="delete(deleteData.id)"
+    wire:target="delete"
+    x-on:close="resetDelete"
+  />
 </div>
