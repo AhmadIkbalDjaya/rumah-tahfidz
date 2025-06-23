@@ -60,6 +60,19 @@ new class extends Component {
     $this->hifzForm->destroy();
     $this->toast("Hafalan berhasil dihapus", "success");
   }
+
+  public function bulkDeleteHifz(array $ids): void
+  {
+    $this->hifzForm->bulkDestroy($ids);
+    $this->toast(count($ids) . " Data terpilih berhasil dihapus", "success");
+  }
+
+  public function getAllHifzId(): array
+  {
+    return Hifz::where("student_id", $this->student->id)
+      ->pluck("id")
+      ->toArray();
+  }
 }; ?>
 
 <div>
@@ -126,75 +139,104 @@ new class extends Component {
   </div>
 
   <div x-data="delete_data" class="card bg-base-100 my-5 p-4 shadow">
-    <h2 class="text-base font-medium">Hafalan Santri</h2>
-    <div class="flex justify-between gap-x-5 py-4">
-      <x-table.search placeholder="Cari Hafalan" />
-      <a
-        wire:navigate.hover
-        href="{{ route("hifz.create", ["student_id" => $student->id]) }}"
-      >
-        <x-table.create-button label="Tambah Hafalan" />
-      </a>
-    </div>
+    <span x-data="table_selected({{ $hifzs->total() }}, 'getAllHifzId')">
+      <h2 class="text-base font-medium">Hafalan Santri</h2>
+      <div class="flex justify-between gap-x-5 py-4">
+        <x-table.search placeholder="Cari Hafalan" />
+        <div class="flex w-fit gap-x-1.5">
+          <x-table.bulk.dropdown x-show="selected.length > 0">
+            <x-table.bulk.delete-action modal_id="confirmBulkDelete" />
+          </x-table.bulk.dropdown>
+          <x-modal.delete
+            title="Konfirmasi Hapus data terpilih?"
+            id="confirmBulkDelete"
+            wire:target="bulkDelete"
+            x-on:confirm="$wire.bulkDeleteHifz(selected); total_data -= selected.length; unselectAll();"
+          />
+          <a
+            wire:navigate.hover
+            href="{{ route("hifz.create", ["student_id" => $student->id]) }}"
+          >
+            <x-table.create-button label="Tambah Hafalan" />
+          </a>
+        </div>
+      </div>
 
-    <x-table>
-      <thead>
-        <tr>
-          <x-table.th class="px-3 text-center">No</x-table.th>
-          <x-table.th label="Zidayah" />
-          <x-table.th label="Muroja'ah" class="text-center" />
-          <x-table.th label="Nilai" class="text-center" />
-          <x-table.th label="Waktu Menghafal" />
-          <x-table.th label="Aksi" />
-        </tr>
-      </thead>
-      <tbody>
-        @foreach ($hifzs as $hifz)
-          <tr wire:key="{{ $hifz->id }}">
-            <x-table.th
-              :label="$hifzs->firstItem() + $loop->index"
-              class="px-3 text-center"
+      <x-table.selection-bar
+        selectedLength="selected.length"
+        totalData="{{ $hifzs->total() }}"
+        selectAll="selectAll"
+        unselectAll="unselectAll"
+      />
+      <x-table>
+        <thead>
+          <tr>
+            <x-table.th.checkbox
+              id="selectAllData"
+              x-bind:checked="(selected.length == total_data) && (total_data!=0)"
+              x-on:click="toggleSelectAll"
             />
-            <x-table.td>
-              Surah&nbsp;{{ $hifz->surah->name }} {{ $hifz->verse_start }} -
-              {{ $hifz->verse_end }}
-            </x-table.td>
-            <x-table.td :label="$hifz->review_count" class="text-center" />
-            <x-table.td :label="$hifz->score" class="text-center" />
-            <x-table.td>
-              {{ date("d M Y - H:i", strtotime($hifz->recorded_at)) }}
-            </x-table.td>
-
-            <x-table.td class="flex items-center gap-x-2">
-              <x-table.edit-action
-                :href="route('hifz.edit', ['hifz' => $hifz->id, 'student_id' => $student->id])"
-              />
-              <x-table.delete-action
-                onclick="confirmDeleteHifz.showModal()"
-                x-on:click="setDelete({{ $hifz }})"
-              />
-            </x-table.td>
+            <x-table.th class="px-2 text-center">No</x-table.th>
+            <x-table.th label="Zidayah" />
+            <x-table.th label="Muroja'ah" class="text-center" />
+            <x-table.th label="Nilai" class="text-center" />
+            <x-table.th label="Waktu Menghafal" />
+            <x-table.th label="Aksi" />
           </tr>
-        @endforeach
-      </tbody>
-    </x-table>
+        </thead>
+        <tbody>
+          @foreach ($hifzs as $hifz)
+            <tr wire:key="{{ $hifz->id }}">
+              <x-table.th.checkbox
+                id="data-checkbox-{{ $hifz->id }}"
+                :value="$hifz->id"
+                x-model="selected"
+              />
+              <x-table.th
+                :label="$hifzs->firstItem() + $loop->index"
+                class="px-3 text-center"
+              />
+              <x-table.td>
+                Surah&nbsp;{{ $hifz->surah->name }} {{ $hifz->verse_start }} -
+                {{ $hifz->verse_end }}
+              </x-table.td>
+              <x-table.td :label="$hifz->review_count" class="text-center" />
+              <x-table.td :label="$hifz->score" class="text-center" />
+              <x-table.td>
+                {{ date("d M Y - H:i", strtotime($hifz->recorded_at)) }}
+              </x-table.td>
 
-    <div class="flex justify-between gap-y-2 p-4">
-      <x-table.perpage />
-      <x-table.pagination :paginator="$hifzs" />
-    </div>
+              <x-table.td class="flex items-center gap-x-2">
+                <x-table.edit-action
+                  :href="route('hifz.edit', ['hifz' => $hifz->id, 'student_id' => $student->id])"
+                />
+                <x-table.delete-action
+                  onclick="confirmDeleteHifz.showModal()"
+                  x-on:click="setDelete({{ $hifz }})"
+                />
+              </x-table.td>
+            </tr>
+          @endforeach
+        </tbody>
+      </x-table>
 
-    <x-modal.delete
-      id="confirmDeleteHifz"
-      wire:confirm="deleteHifz(deleteData.id)"
-      wire:target="deleteHifz"
-      x-on:close="resetDelete"
-    />
+      <div class="flex justify-between gap-y-2 p-4">
+        <x-table.perpage />
+        <x-table.pagination :paginator="$hifzs" />
+      </div>
 
-    <x-modal.delete
-      id="confirmDelete"
-      wire:confirm="delete({{ $student->id }})"
-      wire:target="delete"
-    />
+      <x-modal.delete
+        id="confirmDeleteHifz"
+        wire:target="deleteHifz"
+        x-on:close="resetDelete"
+        x-on:confirm="$wire.deleteHifz(deleteData.id); resetDelete(); total_data -= 1;"
+      />
+
+      <x-modal.delete
+        id="confirmDelete"
+        wire:confirm="delete({{ $student->id }})"
+        wire:target="delete"
+      />
+    </span>
   </div>
 </div>
