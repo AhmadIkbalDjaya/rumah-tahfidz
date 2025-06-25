@@ -35,7 +35,7 @@ new class extends Component {
   <div class="bg-base-100 my-3 rounded shadow">
     <div class="flex justify-between gap-x-5 p-4">
       <h2 class="text-base font-medium">Baru Saja Diakses</h2>
-      <a wire:navigate.hover href="{{ route("hifz.index") }}">
+      <a wire:navigate href="{{ route("hifz.index") }}">
         <button class="btn btn-sm btn-success text-white">
           <span class="hidden md:block">Lihat Lainnya</span>
           <x-icons.arrow-right class="h-4 w-4" />

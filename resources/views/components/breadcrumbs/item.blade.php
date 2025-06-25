@@ -5,7 +5,7 @@
 
 <li>
   @if ($href)
-    <a wire:navigate.hover href="{{ $href }}" {{ $attributes }}>
+    <a wire:navigate href="{{ $href }}" {{ $attributes }}>
       {{ $label ? __($label) : $slot }}
     </a>
   @else

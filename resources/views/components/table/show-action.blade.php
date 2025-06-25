@@ -3,7 +3,7 @@
 ])
 
 @if ($href)
-  <a wire:navigate.hover href="{{ $href }}" {{ $attributes }}>
+  <a wire:navigate href="{{ $href }}" {{ $attributes }}>
     <x-icons.eye class="h-6 w-6 text-blue-400" />
   </a>
 @else

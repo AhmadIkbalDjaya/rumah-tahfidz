@@ -28,7 +28,7 @@ new class extends Component {
   </div>
   <div class="flex-1">
     <a
-      wire:navigate.hover
+      wire:navigate
       href="{{ route("home") }}"
       class="flex w-full items-center justify-center text-xl font-semibold md:w-fit md:justify-start"
     >

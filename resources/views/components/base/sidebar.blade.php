@@ -27,7 +27,7 @@
         class="{{ Request::is("/") ? "bg-green-50 dark:bg-green-400/25" : "" }} group relative mx-2.5 mb-2 rounded-md px-2 py-1 text-gray-600 hover:bg-green-50 dark:text-gray-400 dark:hover:bg-green-400/25"
       >
         <a
-          wire:navigate.hover
+          wire:navigate
           href="{{ route("home") }}"
           class="flex items-center gap-x-2.5"
         >
@@ -48,7 +48,7 @@
         class="{{ Request::is("students*") ? "bg-green-50 dark:bg-green-400/25" : "" }} group relative mx-2.5 mb-2 rounded-md px-2 py-1 text-gray-600 hover:bg-green-50 dark:text-gray-400 dark:hover:bg-green-400/25"
       >
         <a
-          wire:navigate.hover
+          wire:navigate
           href="{{ route("students.index") }}"
           class="flex gap-x-2.5"
         >
@@ -69,7 +69,7 @@
         class="{{ Request::is("hifz*") ? "bg-green-50 dark:bg-green-400/25" : "" }} group relative mx-2.5 mb-2 rounded-md px-2 py-1 text-gray-600 hover:bg-green-50 dark:text-gray-400 dark:hover:bg-green-400/25"
       >
         <a
-          wire:navigate.hover
+          wire:navigate
           href="{{ route("hifz.index") }}"
           class="flex gap-x-2.5"
         >

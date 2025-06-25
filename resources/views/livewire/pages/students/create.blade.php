@@ -77,7 +77,7 @@ new class extends Component {
       </div>
     </div>
     <div class="flex justify-end gap-x-3">
-      <a wire:navigate.hover href="{{ route("students.index") }}">
+      <a wire:navigate href="{{ route("students.index") }}">
         <button
           type="button"
           class="btn btn-sm btn-ghost flex items-center gap-x-2"

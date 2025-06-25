@@ -83,7 +83,7 @@ new class extends Component {
             wire:target="bulkDelete"
             x-on:confirm="$wire.bulkDelete(selected); total_data -= selected.length; unselectAll();"
           />
-          <a wire:navigate.hover href="{{ route("hifz.create") }}">
+          <a wire:navigate href="{{ route("hifz.create") }}">
             <x-table.create-button label="Tambah Hafalan" />
           </a>
         </div>

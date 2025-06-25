@@ -86,7 +86,7 @@ new class extends Component {
   </div>
   <div class="mb-3 md:text-end">
     <a
-      wire:navigate.hover
+      wire:navigate
       href="{{ route("students.edit", ["student" => $student->id, "student_id" => $student->id]) }}"
     >
       <button class="btn btn-warning btn-sm text-white">
@@ -154,7 +154,7 @@ new class extends Component {
             x-on:confirm="$wire.bulkDeleteHifz(selected); total_data -= selected.length; unselectAll();"
           />
           <a
-            wire:navigate.hover
+            wire:navigate
             href="{{ route("hifz.create", ["student_id" => $student->id]) }}"
           >
             <x-table.create-button label="Tambah Hafalan" />

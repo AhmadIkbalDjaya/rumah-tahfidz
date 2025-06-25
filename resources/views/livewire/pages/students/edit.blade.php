@@ -89,7 +89,7 @@ new class extends Component {
     </div>
     <div class="flex justify-end gap-x-3">
       <a
-        wire:navigate.hover
+        wire:navigate
         href="{{ $student_id ? route("students.show", ["student" => $student_id]) : route("students.index") }}"
       >
         <button
