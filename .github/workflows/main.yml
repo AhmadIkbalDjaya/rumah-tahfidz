@@ -10,10 +10,13 @@ jobs:
     steps:
       - name: 🚚 Get latest code
         uses: actions/checkout@v5
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: "20"
+
+      - name: 📦 Install Node dependencies
+        run: npm install
+
+      - name: 🏗️ Build Frontend
+        run: npm run build
+
       - name: 📂Sync Files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
@@ -23,6 +26,7 @@ jobs:
           server-dir: ${{ vars.FTP_SERVER_DIR }}
           protocol: ${{ vars.PROTOCOL }}
           port: ${{ vars.FTP_PORT }}
+
       - name: 📂 Sync Public
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:

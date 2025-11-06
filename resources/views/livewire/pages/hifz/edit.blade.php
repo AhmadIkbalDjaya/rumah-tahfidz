@@ -221,7 +221,9 @@ new class extends Component {
           <legend class="fieldset-legend">Ayat Pertama</legend>
           <select wire:model.live="form.verse_start" class="select w-full">
             <option value="null" disabled>Pilih Ayat</option>
-            <template x-for="i in verse_count">
+            <template
+              x-for="i in Array.from({ length: verse_count }, (_, i) => i + 1)"
+            >
               <option
                 x-bind:value="i"
                 x-text="i"
@@ -235,7 +237,9 @@ new class extends Component {
           <legend class="fieldset-legend">Ayat Terakhir</legend>
           <select wire:model.live="form.verse_end" class="select w-full">
             <option value="null" disabled>Pilih Ayat</option>
-            <template x-for="i in verse_count">
+            <template
+              x-for="i in Array.from({ length: verse_count }, (_, i) => i + 1)"
+            >
               <option
                 x-bind:value="i"
                 x-text="i"
