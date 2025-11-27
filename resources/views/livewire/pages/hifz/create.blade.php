@@ -22,6 +22,7 @@ new class extends Component {
     if ($this->student_id) {
       $this->form->student_id = $this->student_id;
     }
+    $this->form->recorded_at = now()->format("Y-m-d\TH:i");
   }
   public function with(): array
   {

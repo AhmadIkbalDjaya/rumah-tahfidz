@@ -289,5 +289,6 @@ return [
         'review_count'             => "muroja'ah",
         'score'                    => 'nilai',
         'recorded_at'              => 'tanggal hafalan',
+        'class_name'               => 'nama kelas',
     ],
 ];

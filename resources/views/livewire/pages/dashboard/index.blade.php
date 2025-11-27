@@ -59,8 +59,8 @@ new class extends Component {
             <x-table.th :label="1 + $loop->index" class="px-3 text-center" />
             <x-table.td :label="$hifz->student->name" />
             <x-table.td>
-              Surah&nbsp;{{ $hifz->surah->name }} {{ $hifz->verse_start }} -
-              {{ $hifz->verse_end }}
+              Surah&nbsp;{{ $hifz->surah->name }} ({{ $hifz->verse_start }} -
+              {{ $hifz->verse_end }})
             </x-table.td>
             <x-table.td :label="$hifz->review_count" class="text-center" />
             <x-table.td :label="$hifz->score" class="text-center" />

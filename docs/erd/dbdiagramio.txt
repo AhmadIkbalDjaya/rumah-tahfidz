@@ -16,6 +16,7 @@ table students {
   name varchar [not null]
   claass_id int [null]
   guardian_name varchar [not null]
+  class_name varchar [null, default:null]
   created_at timestamp
   updated_at timestamp
 }

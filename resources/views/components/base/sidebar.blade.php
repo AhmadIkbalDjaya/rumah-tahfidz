@@ -9,18 +9,16 @@
   <div
     class="bg-base-100 flex h-screen w-60 flex-col justify-between p-1.5 md:h-full md:w-full md:bg-transparent md:p-0"
   >
-    <div class="flex items-center gap-x-2.5">
-      <img
-        src="{{ asset("assets/images/logo.webp") }}"
-        alt=""
-        srcset=""
-        class="h-10 w-10"
-        loading="lazy"
-      />
-      <div class="text-lg font-semibold">
-        <h5>Ponpes DDI</h5>
-        <p class="-mt-1">Darun Jannah</p>
-      </div>
+    <div class="px-3">
+      <a href="{{ route("home") }}">
+        <h1 class="mt-0.5 text-2xl font-extrabold tracking-tight">
+          <span
+            class="bg-gradient-to-r from-green-700 to-lime-500 bg-clip-text tracking-wide text-transparent"
+          >
+            Rumah Tahfidz
+          </span>
+        </h1>
+      </a>
     </div>
     <ul class="my-5 grow">
       <li

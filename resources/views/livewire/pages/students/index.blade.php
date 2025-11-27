@@ -14,15 +14,12 @@ new class extends Component {
 
   public function with(): array
   {
-    $students = Student::select(["id", "name", "claass_id", "guardian_name"])
-      ->with(["claass:id,name"])
+    $students = Student::select(["id", "name", "guardian_name", "class_name"])
       ->when($this->search, function ($query) {
         $query
           ->where("name", "LIKE", "%$this->search%")
           ->orWhere("guardian_name", "LIKE", "%$this->search%")
-          ->orWhereHas("claass", function ($query) {
-            $query->where("name", "LIKE", "%$this->search%");
-          });
+          ->orWhere("class_name", "LIKE", "%$this->search%");
       })
       ->latest()
       ->paginate($this->perpage);
@@ -41,7 +38,10 @@ new class extends Component {
   public function bulkDelete(array $ids): void
   {
     $this->form->bulkDestroy($ids);
-    $this->toast(count($ids) . "Data terpilih berhasil dihapus", "success");
+    $this->toast(
+      count($ids) . " Data santri terpilih berhasil dihapus",
+      "success",
+    );
   }
 
   public function getAllId(): array
@@ -71,7 +71,16 @@ new class extends Component {
             id="confirmBulkDelete"
             wire:target="bulkDelete"
             x-on:confirm="$wire.bulkDelete(selected); total_data -= selected.length; unselectAll();"
-          />
+          >
+            Apakah Anda yakin ingin menghapus
+            <span
+              x-text="selected.length"
+              class="font-bold text-red-400"
+            ></span>
+            santri terpilih?
+            <br />
+            Data yang telah dihapus tidak dapat dikembalikan.
+          </x-modal.delete>
           <a wire:navigate href="{{ route("students.create") }}">
             <x-table.create-button label="Tambah Santri" />
           </a>
@@ -88,7 +97,7 @@ new class extends Component {
           <tr>
             <x-table.th.checkbox
               id="selectAllData"
-              x-bind:checked="(selected.length == total_data) && (total_data!=0)"
+              x-bind:checked="(selected.length == total_data) && (total_data != 0)"
               x-on:click="toggleSelectAll"
             />
             <x-table.th class="px-2 text-center">No</x-table.th>
@@ -112,7 +121,7 @@ new class extends Component {
               />
               <x-table.td :label="$student->name" />
               <x-table.td
-                :label="$student->claass->name"
+                :label="$student->class_name ?? '--'"
                 class="text-center"
               />
               <x-table.td :label="$student->guardian_name" />

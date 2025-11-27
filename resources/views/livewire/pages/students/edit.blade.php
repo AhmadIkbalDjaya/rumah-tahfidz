@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Claass;
 use App\Models\Student;
 use Livewire\Volt\Component;
 use App\Livewire\Forms\StudentForm;
@@ -18,17 +17,6 @@ new class extends Component {
   public function mount()
   {
     $this->form->setStudent($this->student);
-  }
-
-  public function with(): array
-  {
-    $claases = Claass::select(["id", "name"])
-      ->orderBy("name", "asc")
-      ->get();
-
-    return [
-      "claases" => $claases,
-    ];
   }
 
   public function edit()
@@ -67,13 +55,13 @@ new class extends Component {
         </fieldset>
         <fieldset class="fieldset">
           <legend class="fieldset-legend">Kelas</legend>
-          <select wire:model.live="form.claass_id" class="select">
-            <option disabled selected>Pilih Kelas</option>
-            @foreach ($claases as $claass)
-              <option value="{{ $claass->id }}">{{ $claass->name }}</option>
-            @endforeach
-          </select>
-          <x-input.error name="form.claass_id" />
+          <input
+            wire:model.live="form.class_name"
+            type="text"
+            class="input"
+            placeholder="Masukkan Nama Kelas"
+          />
+          <x-input.error name="form.class_name" />
         </fieldset>
         <fieldset class="fieldset">
           <legend class="fieldset-legend">Nama Waku</legend>

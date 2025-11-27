@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Claass;
 use Livewire\Volt\Component;
 use App\Livewire\Forms\StudentForm;
 use App\Traits\Livewire\{WithToast};
@@ -11,17 +10,6 @@ new class extends Component {
   #[Layout("components.layouts.base")]
   #[Title("Tambah Santri")]
   public StudentForm $form;
-
-  public function with(): array
-  {
-    $claases = Claass::select(["id", "name"])
-      ->orderBy("name", "asc")
-      ->get();
-
-    return [
-      "claases" => $claases,
-    ];
-  }
 
   public function store()
   {
@@ -56,13 +44,13 @@ new class extends Component {
         </fieldset>
         <fieldset class="fieldset">
           <legend class="fieldset-legend">Kelas</legend>
-          <select wire:model.live="form.claass_id" class="select">
-            <option value="" disabled selected>Pilih Kelas</option>
-            @foreach ($claases as $claass)
-              <option value="{{ $claass->id }}">{{ $claass->name }}</option>
-            @endforeach
-          </select>
-          <x-input.error name="form.claass_id" />
+          <input
+            wire:model.live="form.class_name"
+            type="text"
+            class="input"
+            placeholder="Masukkan Nama Kelas"
+          />
+          <x-input.error name="form.class_name" />
         </fieldset>
         <fieldset class="fieldset">
           <legend class="fieldset-legend">Nama Wali</legend>

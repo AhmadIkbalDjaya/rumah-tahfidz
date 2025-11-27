@@ -118,7 +118,7 @@ new class extends Component {
         </div>
         <div class="">
           <h5 class="font-medium">Kelas</h5>
-          <p>{{ $student->claass?->name }}</p>
+          <p>{{ $student->class_name ?? "--" }}</p>
         </div>
         <div class="">
           <h5 class="font-medium">Jumlah Zidayah</h5>
@@ -152,7 +152,16 @@ new class extends Component {
             id="confirmBulkDelete"
             wire:target="bulkDelete"
             x-on:confirm="$wire.bulkDeleteHifz(selected); total_data -= selected.length; unselectAll();"
-          />
+          >
+            Apakah Anda yakin ingin menghapus
+            <span
+              x-text="selected.length"
+              class="font-bold text-red-400"
+            ></span>
+            hafalan terpilih?
+            <br />
+            Data yang telah dihapus tidak dapat dikembalikan.
+          </x-modal.delete>
           <a
             wire:navigate
             href="{{ route("hifz.create", ["student_id" => $student->id]) }}"
@@ -197,8 +206,8 @@ new class extends Component {
                 class="px-3 text-center"
               />
               <x-table.td>
-                Surah&nbsp;{{ $hifz->surah->name }} {{ $hifz->verse_start }} -
-                {{ $hifz->verse_end }}
+                Surah&nbsp;{{ $hifz->surah->name }} ({{ $hifz->verse_start }}
+                - {{ $hifz->verse_end }})
               </x-table.td>
               <x-table.td :label="$hifz->review_count" class="text-center" />
               <x-table.td :label="$hifz->score" class="text-center" />
