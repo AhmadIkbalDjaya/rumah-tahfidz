@@ -24,11 +24,15 @@ This application is intended for single-user (admin-only) access to easily manag
 |-------|------|---------|
 | ![Login](docs/preview/light/login.png) | ![Hifz](docs/preview/light/hifz.png) | ![Student](docs/preview/light/students-detail.png) |
 
+See other screenshots in the [docs/preview/light](docs/preview/light) directory.
+
 #### 🌙 Dark Mode
 
 | Login | Hifz | Student |
 |-------|------|---------|
 | ![Login](docs/preview/dark/login.png) | ![Hifz](docs/preview/dark/hifz.png) | ![Student](docs/preview/dark/students-detail.png) |
+
+See other screenshots in the [docs/preview/dark](docs/preview/dark) directory.
 
 ---
 
