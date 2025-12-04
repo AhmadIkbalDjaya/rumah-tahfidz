@@ -21,7 +21,7 @@
     </script>
 
     <title>
-      {{ isset($title) && $title != "" ? "$title - " . config("APP_NAME") : config("APP_NAME") }}
+      {{ isset($title) && $title != "" ? "$title - " . config("app.name") : config("app.name") }}
       
     </title>
 
