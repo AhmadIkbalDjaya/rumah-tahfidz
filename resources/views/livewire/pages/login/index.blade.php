@@ -28,15 +28,41 @@ new class extends Component {
   <div
     class="bg-base-100 relative w-full rounded-xl p-10 px-5 text-center shadow md:w-md md:px-10"
   >
-    <h2
-      class="absolute -top-22 right-0 left-0 w-full text-center text-2xl font-medium text-gray-50 text-shadow-lg"
-    >
-      Sistem Pengelolah
-      <br class="block md:hidden" />
-      Hafalan Al-Qur'an
-    </h2>
+    <div class="mb-10">
+      <div class="flex w-full items-center gap-x-1">
+        <div class="rounded bg-white px-2.5">
+          <img
+            src="{{ asset("assets/images/logo.webp") }}"
+            alt=""
+            srcset=""
+            class="w-12"
+            loading="lazy"
+          />
+        </div>
+        <div class="flex flex-col items-start">
+          <h1 class="text-lg font-extrabold tracking-tight">
+            <span
+              class="bg-gradient-to-r from-green-700 to-lime-500 bg-clip-text tracking-wide text-transparent uppercase"
+            >
+              Rumah Tahfidz
+            </span>
+          </h1>
+          <h1 class="h-6 text-lg font-extrabold tracking-tight">
+            <span
+              class="bg-gradient-to-r from-green-700 to-lime-500 bg-clip-text tracking-wide text-transparent uppercase"
+            >
+              Al-Fajri Makassar
+            </span>
+          </h1>
+          <p
+            class="text-start text-[8px] font-medium text-gray-400 dark:text-gray-400"
+          >
+            Jl. Toddoppuli Raya Timur, Perm. Ilma Green Residence PK 25
+          </p>
+        </div>
+      </div>
+    </div>
     <form wire:submit="login" class="flex flex-col gap-y-9">
-      <h2 class="mb-2 text-xl font-medium">Masuk ke Akun Anda</h2>
       <fieldset class="fieldset">
         <label class="input input-success w-full">
           <x-icons.user-filled class="text-green-400" />

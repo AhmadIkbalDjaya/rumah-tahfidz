@@ -9,15 +9,38 @@
   <div
     class="bg-base-100 flex h-screen w-60 flex-col justify-between p-1.5 md:h-full md:w-full md:bg-transparent md:p-0"
   >
-    <div class="px-3">
-      <a href="{{ route("home") }}">
-        <h1 class="mt-0.5 text-2xl font-extrabold tracking-tight">
-          <span
-            class="bg-gradient-to-r from-green-700 to-lime-500 bg-clip-text tracking-wide text-transparent"
+    <div class="px-2">
+      <a href="{{ route("home") }}" class="flex items-center gap-x-0.5">
+        <div class="rounded bg-white px-1.5">
+          <img
+            src="{{ asset("assets/images/logo.webp") }}"
+            alt=""
+            srcset=""
+            class="w-9"
+            loading="lazy"
+          />
+        </div>
+        <div class="flex flex-col items-start">
+          <h1 class="text-md h-5 font-extrabold tracking-tight">
+            <span
+              class="bg-gradient-to-r from-green-700 to-lime-500 bg-clip-text tracking-wide text-transparent uppercase"
+            >
+              Rumah Tahfidz
+            </span>
+          </h1>
+          <h1 class="h-5 text-sm font-extrabold tracking-tight">
+            <span
+              class="bg-gradient-to-r from-green-700 to-lime-500 bg-clip-text tracking-wide text-transparent uppercase"
+            >
+              Al-Fajri Makassar
+            </span>
+          </h1>
+          <p
+            class="text-start text-[6px] font-medium tracking-tight text-gray-400 dark:text-gray-400"
           >
-            Rumah Tahfidz
-          </span>
-        </h1>
+            Jl. Toddoppuli Raya Timur, Perm. Ilma Green Residence PK 25
+          </p>
+        </div>
       </a>
     </div>
     <ul class="my-5 grow">
